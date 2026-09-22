@@ -203,65 +203,6 @@
     </div>
 
 
-    <script>
-        const form = document.getElementById("contactForm");
-        const sendBtn = document.getElementById("sendBtn");
-        const status = document.getElementById("status");
-
-        form.addEventListener("submit", async function (event) {
-
-            event.preventDefault();
-
-            sendBtn.disabled = true;
-            sendBtn.textContent = "Sending...";
-            status.style.display = "none";
-
-            const formData = new FormData(form);
-
-            try {
-
-                const response = await fetch(
-                    "https://api.web3forms.com/submit",
-                    {
-                        method: "POST",
-                        body: formData
-                    }
-                );
-
-                const result = await response.json();
-
-                if (result.success) {
-
-                    status.style.display = "block";
-                    status.style.color = "#046307";
-                    status.textContent =
-                        "Your message has been sent successfully!";
-
-                    form.reset();
-
-                } else {
-
-                    status.style.display = "block";
-                    status.style.color = "#c62828";
-                    status.textContent =
-                        "Something went wrong. Please try again.";
-
-                }
-
-            } catch (error) {
-
-                status.style.display = "block";
-                status.style.color = "#c62828";
-                status.textContent =
-                    "Unable to send your message. Please try again.";
-
-            }
-
-            sendBtn.disabled = false;
-            sendBtn.textContent = "Send Message";
-
-        });
-    </script>
 
 </body>
 </html>
