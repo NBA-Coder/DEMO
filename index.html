@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0d2744">
+  <meta name="description" content="SafeEdge Apartments Gallery — Work, Create, Stay in Ayobo, Lagos.">
+
+  <title>SafeEdge Apartments | Gallery</title>
+
+  <!-- Browser tab icon / GitHub Pages favicon -->
+  <link rel="icon" type="image/png" href="assets/safeedge-favicon.png">
+  <link rel="apple-touch-icon" href="assets/safeedge-favicon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="ambient-background" aria-hidden="true">
+    <span class="light light-1"></span>
+    <span class="light light-2"></span>
+    <span class="light light-3"></span>
+    <span class="light light-4"></span>
+    <span class="light light-5"></span>
+    <span class="light light-6"></span>
+  </div>
+
+  <div class="page-shell">
+
+    <!-- HEADER -->
+    <header class="topbar">
+      <a class="brand" href="./" aria-label="SafeEdge Apartments">
+        <img src="assets/Background.jpg" alt="SafeEdge Apartments logo">
+      </a>
+
+      <div class="header-title">
+        <span>SAFEEDGE APARTMENTS</span>
+        <h1>Gallery</h1>
+      </div>
+    </header>
+
+    <!-- GALLERY -->
+    <main class="gallery-stage">
+
+      <div class="intro">
+        <span></span>
+        <p>WORK &nbsp;•&nbsp; CREATE &nbsp;•&nbsp; STAY</p>
+      </div>
+
+      <section class="carousel-wrap" aria-label="SafeEdge photo gallery">
+        <button class="nav-btn prev" id="prevBtn" type="button" aria-label="Previous image">
+          <span>‹</span>
+        </button>
+
+        <div class="carousel" id="carousel">
+          <div class="slides" id="slides"></div>
+        </div>
+
+        <button class="nav-btn next" id="nextBtn" type="button" aria-label="Next image">
+          <span>›</span>
+        </button>
+      </section>
+
+      <section class="caption-area">
+        <div class="caption" id="caption">
+          <span class="caption-kicker">SAFEEDGE</span>
+          <h2 id="captionTitle">Welcome to SafeEdge</h2>
+          <p id="captionText">Comfortable spaces designed for living, working and creating.</p>
+        </div>
+
+        <div class="controls-meta">
+          <span id="counter">00 / 00</span>
+          <div class="progress" aria-hidden="true">
+            <span id="progressBar"></span>
+          </div>
+        </div>
+      </section>
+
+      <div class="swipe-hint">
+        <span></span>
+        Swipe to explore
+      </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <span>Ayobo, Lagos</span>
+      <b>•</b>
+      <span>SafeEdge Apartments</span>
+    </footer>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

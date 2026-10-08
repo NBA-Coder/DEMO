@@ -1,0 +1,822 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --navy: #0d2744;
+    --navy-soft: #173a5d;
+    --teal: #178e99;
+    --teal-dark: #0f6f79;
+    --mist: #f4f9f9;
+    --white: #ffffff;
+    --text: #173047;
+    --muted: #708293;
+}
+
+html,
+body {
+    width: 100%;
+    min-height: 100%;
+}
+
+body {
+    min-height: 100vh;
+    font-family: "Inter", sans-serif;
+    color: var(--text);
+    overflow-x: hidden;
+    position: relative;
+
+    /* Visible animated base */
+    background:
+        radial-gradient(circle at 15% 20%, rgba(23, 142, 153, 0.18), transparent 28%),
+        radial-gradient(circle at 85% 75%, rgba(13, 39, 68, 0.12), transparent 30%),
+        linear-gradient(
+            120deg,
+            #ffffff 0%,
+            #e8f6f6 25%,
+            #ffffff 50%,
+            #edf5f8 75%,
+            #ffffff 100%
+        );
+    background-size: 180% 180%, 180% 180%, 300% 300%;
+    animation: baseBackgroundMove 14s ease-in-out infinite;
+}
+
+@keyframes baseBackgroundMove {
+    0% {
+        background-position: 0% 20%, 100% 80%, 0% 50%;
+    }
+
+    25% {
+        background-position: 30% 0%, 70% 100%, 50% 0%;
+    }
+
+    50% {
+        background-position: 100% 30%, 0% 70%, 100% 50%;
+    }
+
+    75% {
+        background-position: 70% 100%, 30% 0%, 50% 100%;
+    }
+
+    100% {
+        background-position: 0% 20%, 100% 80%, 0% 50%;
+    }
+}
+
+/* ---------------------------------------------------------
+   ANIMATED BACKGROUND
+   The HTML already contains .ambient-background and .light
+   elements, so no extra HTML is required.
+--------------------------------------------------------- */
+
+.ambient-background {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+
+    /* IMPORTANT: visible behind the content */
+    z-index: 0;
+}
+
+.ambient-background::before,
+.ambient-background::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.ambient-background::before {
+    width: 520px;
+    height: 520px;
+    left: -220px;
+    top: 8%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(23, 142, 153, 0.30) 0%,
+            rgba(23, 142, 153, 0.13) 35%,
+            rgba(23, 142, 153, 0) 72%
+        );
+
+    filter: blur(18px);
+
+    animation: bigTealOrb 9s ease-in-out infinite alternate;
+}
+
+.ambient-background::after {
+    width: 620px;
+    height: 620px;
+    right: -300px;
+    bottom: -180px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(13, 39, 68, 0.20) 0%,
+            rgba(13, 39, 68, 0.08) 38%,
+            rgba(13, 39, 68, 0) 72%
+        );
+
+    filter: blur(22px);
+
+    animation: bigNavyOrb 11s ease-in-out infinite alternate;
+}
+
+@keyframes bigTealOrb {
+    0% {
+        transform: translate3d(0, 0, 0) scale(0.85);
+    }
+
+    35% {
+        transform: translate3d(180px, 100px, 0) scale(1.2);
+    }
+
+    70% {
+        transform: translate3d(360px, -30px, 0) scale(1);
+    }
+
+    100% {
+        transform: translate3d(180px, 210px, 0) scale(1.25);
+    }
+}
+
+@keyframes bigNavyOrb {
+    0% {
+        transform: translate3d(0, 0, 0) scale(0.9);
+    }
+
+    40% {
+        transform: translate3d(-180px, -140px, 0) scale(1.25);
+    }
+
+    75% {
+        transform: translate3d(-40px, -300px, 0) scale(0.95);
+    }
+
+    100% {
+        transform: translate3d(-280px, -180px, 0) scale(1.2);
+    }
+}
+
+/* Moving luminous rings */
+
+.ambient-background::marker {
+    display: none;
+}
+
+/* Use the six existing .light elements as glowing particles. */
+
+.light {
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #178e99;
+    box-shadow:
+        0 0 10px rgba(23, 142, 153, 0.75),
+        0 0 28px rgba(23, 142, 153, 0.40);
+    opacity: 0;
+    animation: floatingLight 8s linear infinite;
+}
+
+.light-1 {
+    left: 8%;
+    bottom: -30px;
+    animation-duration: 9s;
+    animation-delay: 0s;
+}
+
+.light-2 {
+    left: 24%;
+    bottom: -30px;
+    animation-duration: 12s;
+    animation-delay: -4s;
+}
+
+.light-3 {
+    left: 43%;
+    bottom: -30px;
+    animation-duration: 10s;
+    animation-delay: -7s;
+}
+
+.light-4 {
+    left: 63%;
+    bottom: -30px;
+    animation-duration: 13s;
+    animation-delay: -2s;
+}
+
+.light-5 {
+    left: 80%;
+    bottom: -30px;
+    animation-duration: 11s;
+    animation-delay: -6s;
+}
+
+.light-6 {
+    left: 93%;
+    bottom: -30px;
+    animation-duration: 14s;
+    animation-delay: -9s;
+}
+
+@keyframes floatingLight {
+    0% {
+        transform: translate3d(0, 0, 0) scale(0.4);
+        opacity: 0;
+    }
+
+    12% {
+        opacity: 0.75;
+    }
+
+    35% {
+        transform: translate3d(45px, -30vh, 0) scale(1.35);
+        opacity: 0.45;
+    }
+
+    60% {
+        transform: translate3d(-35px, -60vh, 0) scale(0.85);
+        opacity: 0.65;
+    }
+
+    82% {
+        transform: translate3d(55px, -85vh, 0) scale(1.1);
+        opacity: 0.25;
+    }
+
+    100% {
+        transform: translate3d(-20px, -115vh, 0) scale(0.2);
+        opacity: 0;
+    }
+}
+
+/* Give each particle a slightly different feel */
+
+.light-1,
+.light-4 {
+    width: 10px;
+    height: 10px;
+}
+
+.light-2,
+.light-5 {
+    width: 5px;
+    height: 5px;
+}
+
+.light-3,
+.light-6 {
+    width: 8px;
+    height: 8px;
+}
+
+/* ---------------------------------------------------------
+   PAGE CONTENT
+--------------------------------------------------------- */
+
+.page-shell {
+    width: min(1180px, 100%);
+    min-height: 100vh;
+    margin: auto;
+    padding: 22px 28px 20px;
+    display: flex;
+    flex-direction: column;
+
+    /* Put all actual content above the animation */
+    position: relative;
+    z-index: 2;
+}
+
+/* HEADER */
+
+.topbar {
+    height: 76px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(13, 39, 68, 0.10);
+}
+
+.brand {
+    width: 210px;
+    height: 75px;
+    display: flex;
+    align-items: center;
+    overflow: visible;
+}
+
+.brand img {
+    width: 170px;
+    height: auto;
+    max-height: 70px;
+    object-fit: contain;
+    display: block;
+}
+
+.header-title {
+    text-align: right;
+}
+
+.header-title span {
+    display: block;
+    color: var(--teal);
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.22em;
+    margin-bottom: 3px;
+}
+
+.header-title h1 {
+    color: var(--navy);
+    font-size: clamp(25px, 3vw, 35px);
+    line-height: 1;
+    font-weight: 800;
+    letter-spacing: -0.045em;
+}
+
+/* MAIN */
+
+.gallery-stage {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 0 12px;
+}
+
+.intro {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin-bottom: 14px;
+    opacity: 0;
+    transform: translateY(8px);
+    animation: reveal 700ms 120ms ease forwards;
+}
+
+.intro span {
+    width: 28px;
+    height: 2px;
+    background: var(--teal);
+    border-radius: 50px;
+}
+
+.intro p {
+    color: var(--navy-soft);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.17em;
+}
+
+/* CAROUSEL */
+
+.carousel-wrap {
+    width: min(720px, 100%);
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.carousel {
+    width: min(430px, 67vw);
+    aspect-ratio: 4 / 5.25;
+    position: relative;
+    perspective: 1200px;
+    touch-action: pan-y;
+}
+
+.slides {
+    position: absolute;
+    inset: 0;
+}
+
+.slide {
+    position: absolute;
+    inset: 0;
+    border-radius: 26px;
+    overflow: hidden;
+    background: #dcecee;
+    box-shadow: 0 28px 70px rgba(13, 39, 68, 0.20);
+    opacity: 0;
+    transform: translate3d(0, 20px, -80px) scale(0.88);
+    transition:
+        transform 850ms cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 650ms ease,
+        filter 850ms ease;
+    pointer-events: none;
+    will-change: transform, opacity;
+}
+
+.slide::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+        linear-gradient(to top, rgba(5, 24, 43, 0.48), transparent 35%),
+        linear-gradient(135deg, rgba(255,255,255,0.12), transparent 45%);
+}
+
+.slide.active {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+    z-index: 5;
+    pointer-events: auto;
+}
+
+.slide.prev {
+    opacity: 0.42;
+    transform: translate3d(-54%, 4px, -170px) rotateY(13deg) scale(0.78);
+    z-index: 3;
+    filter: saturate(0.7);
+}
+
+.slide.next {
+    opacity: 0.42;
+    transform: translate3d(54%, 4px, -170px) rotateY(-13deg) scale(0.78);
+    z-index: 3;
+    filter: saturate(0.7);
+}
+
+.slide.far-prev {
+    opacity: 0;
+    transform: translate3d(-80%, 0, -260px) scale(0.65);
+}
+
+.slide.far-next {
+    opacity: 0;
+    transform: translate3d(80%, 0, -260px) scale(0.65);
+}
+
+.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+.slide.active img {
+    animation: imageBreath 5s ease-in-out infinite;
+}
+
+/* NAVIGATION */
+
+.nav-btn {
+    position: absolute;
+    top: 50%;
+    z-index: 20;
+    width: 48px;
+    height: 48px;
+    transform: translateY(-50%);
+    border: 1px solid rgba(13, 39, 68, 0.10);
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.90);
+    color: var(--navy);
+    box-shadow: 0 12px 30px rgba(13, 39, 68, 0.13);
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    transition:
+        transform 220ms ease,
+        background 220ms ease,
+        color 220ms ease;
+    backdrop-filter: blur(10px);
+}
+
+.nav-btn span {
+    font-family: Arial, sans-serif;
+    font-size: 34px;
+    line-height: 1;
+    margin-top: -3px;
+}
+
+.nav-btn:hover {
+    background: var(--teal);
+    color: white;
+    transform: translateY(-50%) scale(1.08);
+}
+
+.nav-btn:active {
+    transform: translateY(-50%) scale(0.94);
+}
+
+.nav-btn.prev {
+    left: 4%;
+}
+
+.nav-btn.next {
+    right: 4%;
+}
+
+/* CAPTION */
+
+.caption-area {
+    width: min(590px, 92%);
+    margin-top: 18px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.caption {
+    min-width: 0;
+    transition:
+        opacity 250ms ease,
+        transform 250ms ease;
+}
+
+.caption.changing {
+    opacity: 0;
+    transform: translateY(7px);
+}
+
+.caption-kicker {
+    display: block;
+    color: var(--teal);
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.2em;
+    margin-bottom: 4px;
+}
+
+.caption h2 {
+    color: var(--navy);
+    font-size: clamp(18px, 3vw, 25px);
+    line-height: 1.1;
+    letter-spacing: -0.035em;
+}
+
+.caption p {
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 1.5;
+    margin-top: 5px;
+    max-width: 420px;
+}
+
+.controls-meta {
+    width: 108px;
+    flex: 0 0 108px;
+}
+
+#counter {
+    display: block;
+    text-align: right;
+    color: var(--navy);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    margin-bottom: 7px;
+}
+
+.progress {
+    height: 3px;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 99px;
+    background: rgba(13, 39, 68, 0.10);
+}
+
+#progressBar {
+    display: block;
+    height: 100%;
+    width: 0%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, var(--navy), var(--teal));
+    transform-origin: left center;
+}
+
+/* FOOTER */
+
+.swipe-hint {
+    margin-top: 10px;
+    color: #8a9aa7;
+    font-size: 9px;
+    letter-spacing: 0.06em;
+    opacity: 0;
+    animation: hint 900ms 1.4s ease forwards;
+}
+
+.swipe-hint span {
+    display: inline-block;
+    width: 20px;
+    height: 1px;
+    vertical-align: middle;
+    margin-right: 6px;
+    background: var(--teal);
+}
+
+.footer {
+    height: 38px;
+    border-top: 1px solid rgba(13, 39, 68, 0.10);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 9px;
+    color: #80909d;
+    font-size: 9px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.footer b {
+    color: var(--teal);
+}
+
+/* ANIMATIONS */
+
+@keyframes imageBreath {
+    0%, 100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.045);
+    }
+}
+
+@keyframes reveal {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes hint {
+    to {
+        opacity: 1;
+    }
+}
+
+/* This now gives a clearly visible pulse whenever the slide changes. */
+
+.background-shift .ambient-background::before {
+    animation:
+        bigTealOrb 9s ease-in-out infinite alternate,
+        backgroundPulse 900ms ease;
+}
+
+.background-shift .ambient-background::after {
+    animation:
+        bigNavyOrb 11s ease-in-out infinite alternate,
+        backgroundPulseNavy 900ms ease;
+}
+
+@keyframes backgroundPulse {
+    0% {
+        filter: blur(18px);
+        opacity: 1;
+    }
+
+    45% {
+        filter: blur(7px);
+        opacity: 1.35;
+        transform: scale(1.14);
+    }
+
+    100% {
+        filter: blur(18px);
+        opacity: 1;
+    }
+}
+
+@keyframes backgroundPulseNavy {
+    0% {
+        filter: blur(22px);
+        opacity: 1;
+    }
+
+    45% {
+        filter: blur(9px);
+        opacity: 1.3;
+        transform: scale(1.10);
+    }
+
+    100% {
+        filter: blur(22px);
+        opacity: 1;
+    }
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 700px) {
+    .page-shell {
+        padding: 16px 18px 14px;
+    }
+
+    .topbar {
+        height: 66px;
+    }
+
+    .brand {
+        width: 150px;
+        height: 60px;
+    }
+
+    .brand img {
+        width: 125px;
+        max-height: 58px;
+    }
+
+    .header-title h1 {
+        font-size: 26px;
+    }
+
+    .header-title span {
+        font-size: 8px;
+    }
+
+    .carousel {
+        width: min(77vw, 380px);
+    }
+
+    .nav-btn {
+        width: 42px;
+        height: 42px;
+    }
+
+    .nav-btn span {
+        font-size: 29px;
+    }
+
+    .nav-btn.prev {
+        left: 0;
+    }
+
+    .nav-btn.next {
+        right: 0;
+    }
+
+    .caption-area {
+        width: 94%;
+        gap: 12px;
+    }
+
+    .controls-meta {
+        width: 82px;
+        flex-basis: 82px;
+    }
+}
+
+@media (max-width: 430px) {
+    .brand {
+        width: 130px;
+    }
+
+    .brand img {
+        width: 110px;
+    }
+
+    .header-title h1 {
+        font-size: 23px;
+    }
+
+    .carousel {
+        width: min(80vw, 335px);
+    }
+
+    .slide {
+        border-radius: 21px;
+    }
+
+    .slide.prev,
+    .slide.next {
+        opacity: 0.22;
+    }
+
+    .caption h2 {
+        font-size: 17px;
+    }
+
+    .caption p {
+        max-width: 230px;
+    }
+
+    .footer {
+        font-size: 8px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
