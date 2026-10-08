@@ -1,0 +1,67 @@
+name: Deploy SafeEdge Gallery to GitHub Pages
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Generate gallery image list
+        shell: python
+        run: |
+          import json
+          from pathlib import Path
+
+          extensions = {".jpg", ".jpeg", ".png", ".webp", ".gif", ".avif"}
+          folder = Path("images")
+
+          files = []
+          if folder.exists():
+              for path in sorted(folder.iterdir(), key=lambda p: p.name.lower()):
+                  if path.is_file() and path.suffix.lower() in extensions:
+                      files.append(f"images/{path.name}")
+
+          Path("images.json").write_text(
+              json.dumps({"images": files}, indent=2),
+              encoding="utf-8"
+          )
+
+          print(f"Found {len(files)} gallery image(s).")
+          for item in files:
+              print(item)
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "."
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
